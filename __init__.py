@@ -23,3 +23,20 @@ ORG = os.getenv('ORG')
 BUCKET = os.getenv('BUCKET')
 
 client = InfluxClient(TOKEN, ORG, BUCKET)
+
+client.write_data(
+    [
+        Point('sample_stock')
+            .tag("stock", "sample")
+            .field("Open", 65)
+            .field("High", 63.38)
+            .field("Low", 62.13)
+            .time(int(datetime.strptime('2021-11-07', '%Y-%m-%d').timestamp())),
+        Point('sample_stock')
+            .tag("stock", "sample")
+            .field("Open", 70)
+            .field("High", 64.52)
+            .field("Low", 63.73)
+            .time(int(datetime.strptime('2021-11-08', '%Y-%m-%d').timestamp()))
+    ]
+)
